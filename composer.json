@@ -4,6 +4,6 @@
     "type": "simplesamlphp-module",
     "require": {
         "simplesamlphp/composer-module-installer": "~1.0",
-        "niif/simplesamlphp-module-aa": "dev-master"
+        "niif/simplesamlphp-module-aa": "~1.0"
     }
 }
