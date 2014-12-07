@@ -1,10 +1,10 @@
 <?php
 /**
- * Hexaa AA source.
+ * Hexaa AA authproc filter.
  *
- * This class is the authentication source of th HEXAA backend
+ * This class is the authproc filter of the HEXAA backend
  * 
- * Example configuration in the config/authsources.php
+ * Example configuration in the config/config.php
  * 
  *    authproc.aa = array(
  *       ...
