@@ -9,7 +9,7 @@
  *    authproc.aa = array(
  *       ...
  *       '60' => array(
- *            'hexaa:Hexaa',
+ *            'class' => 'hexaa:Hexaa',
  *            'nameId_attribute_name' =>  'subject_nameid', // look at the aa authsource config
  *            'hexaa_api_url' =>          'https://www.hexaa.example.com/app.php/api',
  *            'hexaa_master_secret' =>    'you_can_get_it_from_the_hexaa_administrator'
@@ -18,14 +18,14 @@
  * @author 
  * @package 
  */
-class sspmod_hexaa_Auth_Process_Hexaa extends SimpleSAML_Auth_Process {
+class sspmod_hexaa_Auth_Process_Hexaa extends SimpleSAML_Auth_ProcessingFilter {
 
     private $config;
     private $as_config;
 
-	public function __construct($info, $config)
+	public function __construct($config,$reserved)
 	{
-	    parent::__construct($info, $config);
+	    parent::__construct($config,$reserved);
 	    $params = array(
 	    	'hexaa_master_secret',
 	    	'hexaa_api_url',
@@ -33,16 +33,15 @@ class sspmod_hexaa_Auth_Process_Hexaa extends SimpleSAML_Auth_Process {
 	    	);
 	    foreach ($params as $param) {
 	    	if (!array_key_exists($param, $config)) {
-				throw new SimpleSAML_Error_Exception('Missing required attribute \'' . $param .
-				'\' for authentication source ' . $this->authId);
+				throw new SimpleSAML_Error_Exception('Missing required attribute: ' . $param);
 			}
 			$this->as_config[$param] = $config[$param];
 	    }                     			
 	}
 
-	public function authenticate(&$state) {
+	public function process(&$state) {
 		assert('is_array($state)');
-		$nameId = $state['aa:nameId'];
+		$nameId = $state['Attributes'][$this->as_config['nameId_attribute_name']][0];
 		$spid = $state['Destination']['entityid'];
 		$this->config = SimpleSAML_Configuration::getInstance();
 		$state['Attributes'] = $this->getAttributes($nameId,$spid);

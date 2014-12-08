@@ -16,7 +16,7 @@ In the `config/config.php` you can define an array named "authproc.aa", just lik
    authproc.aa = array(
        ...
        '60' => array(
-            'hexaa:Hexaa',
+            'class' => 'hexaa:Hexaa',
             'nameId_attribute_name' =>  'subject_nameid', // look at the aa authsource config
             'hexaa_api_url' =>          'https://www.hexaa.example.com/app.php/api',
             'hexaa_master_secret' =>    'you_can_get_it_from_the_hexaa_administrator'
