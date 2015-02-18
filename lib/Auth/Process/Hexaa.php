@@ -63,7 +63,16 @@ class sspmod_hexaa_Auth_Process_Hexaa extends SimpleSAML_Auth_ProcessingFilter
         
         // Setup cURL
         $ch = curl_init($this->as_config['hexaa_api_url'] . '/attributes.json');
-        curl_setopt_array($ch, array(CURLOPT_POST => TRUE, CURLOPT_RETURNTRANSFER => TRUE, CURLOPT_HTTPHEADER => array('Content-Type: application/json'), CURLOPT_POSTFIELDS => json_encode($postData),));
+        curl_setopt_array($ch,
+        	array(
+        		CURLOPT_CUSTOMREQUEST => "POST",
+        		CURLOPT_RETURNTRANSFER => TRUE,
+        		CURLOPT_HTTPHEADER => array('Content-Type: application/json'),
+        		CURLOPT_POSTFIELDS => json_encode($postData),
+        		CURLOPT_FOLLOWLOCATION => TRUE,
+        		CURLOPT_POSTREDIR => 3
+        		)
+        	);
         
         // Send the request
         $response = curl_exec($ch);
@@ -71,8 +80,9 @@ class sspmod_hexaa_Auth_Process_Hexaa extends SimpleSAML_Auth_ProcessingFilter
         
         // Check for error; not even redirects are allowed here
         if ($response === FALSE || !($http_response >= 200 && $http_response < 300)) {
-            SimpleSAML_Logger::error('[aa] HEXAA API query failed: HTTP response: ' . $http_response . ', curl error: "' . curl_error($ch)) . '"';
-            SimpleSAML_Logger::debug('[aa] HEXAA API query failed: curl info: ' . curl_getinfo($ch));
+            SimpleSAML_Logger::error('[aa] HEXAA API query failed: HTTP response code: ' . $http_response . ', curl error: "' . curl_error($ch)) . '"';
+            SimpleSAML_Logger::debug('[aa] HEXAA API query failed: curl info: ' . var_export(curl_getinfo($ch),1));
+            SimpleSAML_Logger::debug('[aa] HEXAA API query failed: HTTP response: ' . var_export($response,1));
             $data = array();
         } else {
             $data = json_decode($response, true);
