@@ -46,11 +46,6 @@ class sspmod_hexaa_Auth_Process_Hexaa extends SimpleSAML_Auth_ProcessingFilter
     }
     
     public function getAttributes($nameId, $spid, $attributes = array()) {
-        
-        // Set up config
-        $config = $this->config;
-        $retarray = array();
-        
         // Generate API key
         $time = new \DateTime();
         date_timezone_set($time, new \DateTimeZone('UTC'));
