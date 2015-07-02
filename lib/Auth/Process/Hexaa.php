@@ -22,8 +22,6 @@
  */
 class sspmod_hexaa_Auth_Process_Hexaa extends SimpleSAML_Auth_ProcessingFilter
 {
-    
-    private $config;
     private $as_config;
     
     public function __construct($config, $reserved) {
@@ -41,7 +39,6 @@ class sspmod_hexaa_Auth_Process_Hexaa extends SimpleSAML_Auth_ProcessingFilter
         assert('is_array($state)');
         $nameId = $state['Attributes'][$this->as_config['nameId_attribute_name']][0];
         $spid = $state['Destination']['entityid'];
-        $this->config = SimpleSAML_Configuration::getInstance();
         $state['Attributes'] = $this->getAttributes($nameId, $spid);
     }
     
