@@ -7,6 +7,10 @@
         {
             "name": "Gyula Szabó",
             "email": "gyufi@niif.hu"
+        },
+        {
+            "name": "Kristóf Bajnok",
+            "email": "bajnokk@niif.hu"
         }
     ],
     "require": {
