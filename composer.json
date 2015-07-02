@@ -2,6 +2,13 @@
     "name": "niif/simplesamlphp-module-hexaa",
     "description": "HEXAA attribute resolver authproc filter",
     "type": "simplesamlphp-module",
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Gyula Szabó",
+            "email": "gyufi@niif.hu"
+        }
+    ],
     "require": {
         "simplesamlphp/composer-module-installer": "~1.0",
         "niif/simplesamlphp-module-aa": "~1.0"
