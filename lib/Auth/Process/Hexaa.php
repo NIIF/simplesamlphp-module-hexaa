@@ -43,7 +43,7 @@ class sspmod_hexaa_Auth_Process_Hexaa extends SimpleSAML_Auth_ProcessingFilter
 
         // restore the nameId_attribute_name attribute in the state array because the $this->getAttributes(...) call destroys it
         if (empty($state['Attributes'][$this->as_config['nameId_attribute_name']])) {
-            $state['Attributes'][$this->as_config['nameId_attribute_name']] = $nameId;
+            $state['Attributes'][$this->as_config['nameId_attribute_name']] = array($nameId);
         }
     }
     
